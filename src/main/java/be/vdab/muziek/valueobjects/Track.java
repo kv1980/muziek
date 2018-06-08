@@ -26,18 +26,18 @@ public class Track implements Serializable {
 	public BigDecimal getTijd() {
 		return tijd;
 	}
-
-	@Override
-	public int hashCode() {
-		return naam.hashCode();
-	}
-
+	
 	@Override
 	public boolean equals(Object object) {
 		if (!(object instanceof Track)) {
 			return false;
 		}
 		Track andereTrack = (Track) object;
-		return naam.equals(andereTrack.naam) ? true : false;
+		return naam.equalsIgnoreCase(andereTrack.naam) ? true : false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return naam.toUpperCase().hashCode();
 	}
 }

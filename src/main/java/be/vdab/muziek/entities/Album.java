@@ -1,7 +1,9 @@
 package be.vdab.muziek.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -34,7 +36,7 @@ public class Album implements Serializable {
 	private Artiest artiest;
 	@ElementCollection
 	@CollectionTable(name = "tracks", joinColumns = @JoinColumn(name = "albumid"))
-	private List<Track> tracks;
+	private Set<Track> tracks;
 
 	protected Album() {
 	}
@@ -42,6 +44,7 @@ public class Album implements Serializable {
 	public Album(String naam, Artiest artiest) {
 		this.naam = naam;
 		this.artiest = artiest;
+		this.tracks = new LinkedHashSet();
 	}
 
 	public long getId() {
@@ -54,5 +57,9 @@ public class Album implements Serializable {
 
 	public Artiest getArtiest() {
 		return artiest;
+	}
+	
+	public Set<Track> getTracks(){
+		return Collections.unmodifiableSet(tracks);
 	}
 }
