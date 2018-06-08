@@ -1,7 +1,10 @@
 package be.vdab.muziek.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
+
+import be.vdab.muziek.valueobjects.Track;
 
 @Entity
 @Table(name = "albums")
@@ -27,6 +32,9 @@ public class Album implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "artiestid")
 	private Artiest artiest;
+	@ElementCollection
+	@CollectionTable(name = "tracks", joinColumns = @JoinColumn(name = "albumid"))
+	private List<Track> tracks;
 
 	protected Album() {
 	}
